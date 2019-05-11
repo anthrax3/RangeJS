@@ -3,7 +3,7 @@ export type Range = {
   to: number;
 };
 
-export function intersects(a: Range[], b: Range[], overlap: number = 0) {
+export function intersection(a: Range[], b: Range[], overlap: number = 0) {
   a = union(a, overlap);
   b = union(b, overlap);
   const c: Range[] = [];
