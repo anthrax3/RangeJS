@@ -3,9 +3,9 @@ export type Range = {
   to: number;
 };
 
-export function intersects(a: Range[], b: Range[]) {
-  a = merge(a);
-  b = merge(b);
+export function intersects(a: Range[], b: Range[], overlap: number = 0) {
+  a = union(a, overlap);
+  b = union(b, overlap);
   const c: Range[] = [];
 
   // a  ###   ###   #########
@@ -18,11 +18,11 @@ export function intersects(a: Range[], b: Range[]) {
         (x.from <= y.from && x.to >= y.from) ||
         (y.from <= x.from && y.to >= x.from)
       ) {
-        const overlap = {
+        const intersection = {
           from: Math.max(x.from, y.from),
           to: Math.min(x.to, y.to)
         };
-        c.push(overlap);
+        c.push(intersection);
       }
     }
   }
@@ -30,7 +30,7 @@ export function intersects(a: Range[], b: Range[]) {
   return c;
 }
 
-export function merge(ranges: Range[], overlap: number = 0): Range[] {
+export function union(ranges: Range[], overlap: number = 0): Range[] {
   const result: Range[] = [];
   let last: Range | null = null;
 
