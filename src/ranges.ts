@@ -32,7 +32,7 @@ export function intersects(a: Range[], b: Range[]) {
 
 export function merge(ranges: Range[], overlap: number = 0): Range[] {
   const result: Range[] = [];
-  let last: Range;
+  let last: Range | null = null;
 
   for (const r of ranges) {
     if (!last || r.from > last.to + overlap) {

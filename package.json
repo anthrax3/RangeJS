@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/rogeralsing/RangeJS/issues"
   },
-  "homepage": "https://github.com/rogeralsing/RangeJS#readme"
+  "homepage": "https://github.com/rogeralsing/RangeJS#readme",
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
 }
