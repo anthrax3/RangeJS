@@ -3,7 +3,7 @@ export type Range = {
     to: number;
 };
 
-export function intersect(x: Range, y: Range): Range | null {
+function intersect(x: Range, y: Range): Range | null {
     if (
         (x.from <= y.from && x.to >= y.from) ||
         (y.from <= x.from && y.to >= x.from)
@@ -16,7 +16,13 @@ export function intersect(x: Range, y: Range): Range | null {
     return null;
 }
 
-export function intersection(a: Range[], b: Range[], overlap: number = 0) {
+function normalize(a: Range[] | Range) : Range[] {
+    return Array.isArray(a) ? a : [a];
+}
+
+export function intersection(a: Range[] | Range, b: Range[] | Range, overlap: number = 0) : Range[] {
+    a = normalize(a);
+    b = normalize(b);
     a = union(a, overlap);
     b = union(b, overlap);
     const c: Range[] = [];
