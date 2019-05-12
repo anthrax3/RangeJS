@@ -16,25 +16,27 @@ function intersect(x: Range, y: Range): Range | null {
     return null;
 }
 
-function normalize(a: Range[] | Range) : Range[] {
+function normalize(a: Range[] | Range): Range[] {
     return Array.isArray(a) ? a : [a];
 }
 
-export function intersection(a: Range[] | Range, b: Range[] | Range, overlap: number = 0) : Range[] {
+export function intersection(a: Range[] | Range, b: Range[] | Range, overlap: number = 0): Range[] {
+    // a    ###   ###   #########
+    // b   ###########        #####
+    //
+    // res  ###   ###         ###
+
     a = normalize(a);
     b = normalize(b);
     a = union(a, overlap);
     b = union(b, overlap);
     const c: Range[] = [];
 
-    // a  ###   ###   #########
-    // b ###########        #####
-    //
-    // r  ###   ###         ###
+
     for (const x of a) {
         for (const y of b) {
-            const intersection = intersect(x,y);
-            if (intersection){
+            const intersection = intersect(x, y);
+            if (intersection) {
                 c.push(intersection);
             }
         }
@@ -44,6 +46,11 @@ export function intersection(a: Range[] | Range, b: Range[] | Range, overlap: nu
 }
 
 export function union(ranges: Range[], overlap: number = 0): Range[] {
+    // r1   ###   ###   #########
+    // r2  ##      ###        #####
+    //
+    // res ####   ####  ###########
+
     const result: Range[] = [];
     let last: Range | null = null;
 
